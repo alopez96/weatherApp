@@ -9,10 +9,12 @@ export default class App extends React.Component {
     isLoading: false,
     temperature: 0,
     weatherCondition: null,
-    error: null
+    error: null,
+    fetched: false,
   };
 
   componentDidMount() {
+    console.debug('fetch weather1')
     navigator.geolocation.getCurrentPosition(
       position => {
         this.fetchWeather(position.coords.latitude, position.coords.longitude);
@@ -26,6 +28,7 @@ export default class App extends React.Component {
   }
 
   fetchWeather(lat = 25, lon = 25) {
+    console.debug('fetch weather')
     fetch(
       `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=${API_KEY}&units=imperial`
     )
@@ -35,9 +38,11 @@ export default class App extends React.Component {
         this.setState({
           temperature: json.main.temp,
           weatherCondition: json.weather[0].main,
-          isLoading: false
+          isLoading: false,
+          fetched: true
         });
-      });
+      })
+      .catch(er => {console.debug('error', er)})
   }
 
   render() {
@@ -47,8 +52,9 @@ export default class App extends React.Component {
       {isLoading ? ( 
         <Text>Fetching weather data</Text>
       ):(
-        <View>
-          <Weather weather={weatherCondition} temperature={temperature}></Weather>
+        <View>{this.state.fetched
+          ?<Weather weather={weatherCondition} temperature={temperature}></Weather>
+          :null}
         </View>
       )}
       </View>
