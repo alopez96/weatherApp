@@ -14,7 +14,6 @@ export default class App extends React.Component {
   };
 
   componentDidMount() {
-    console.debug('fetch weather1')
     navigator.geolocation.getCurrentPosition(
       position => {
         this.fetchWeather(position.coords.latitude, position.coords.longitude);
@@ -28,7 +27,6 @@ export default class App extends React.Component {
   }
 
   fetchWeather(lat = 25, lon = 25) {
-    console.debug('fetch weather')
     fetch(
       `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=${API_KEY}&units=imperial`
     )
