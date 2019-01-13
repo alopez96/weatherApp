@@ -1,5 +1,5 @@
 Weather App.
 <br/>
 React Native Practice using:
-React Native
+React Native,
 Open Weather MAP API

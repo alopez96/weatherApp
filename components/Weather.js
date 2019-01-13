@@ -35,7 +35,6 @@ Weather.propTypes = {
   weather: PropTypes.string
 };
 
-
 const styles = StyleSheet.create({
   weatherContainer: {
     flex: 1
